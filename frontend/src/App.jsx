@@ -1,35 +1,35 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { Routes, Route, Link } from "react-router-dom";
+import Home from "./components/Home";
+import SkillCreate from "./components/skills/SkillCreate";
+import SkillEdit from "./components/skills/SkillEdit";
+import SkillIndex from "./components/skills/SkillIndex";
+import SkillContext from "./Context/SkillContext";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <SkillProvider>
+      <div className='bg-slate-300'>
+        <div className='max-w-7xl mx-auto min-h-screen'>
+          <nav>
+            <ul className='flex'>
+              <li className='m-2 p-2 bg-green-500 hover:bg-green-700 text-black rounded-md'>
+                <Link to='/'>Home</Link>
+              </li>
+              <li className='m-2 p-2 bg-green-500 hover:bg-green-700 text-black rounded-md'>
+                <Link to='/skills'>Skills</Link>
+              </li>
+            </ul>
+          </nav>
+          <Routes>
+            <Route path='/' element={<Home />} />
+            <Route path='/skills' element={<SkillIndex />} />
+            <Route path='/skills/create' element={<SkillCreate />} />
+            <Route path='/skills/:id/edit' element={<SkillEdit />} />
+          </Routes>
+        </div>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </div>
-  )
+    </SkillProvider>
+  );
 }
 
-export default App
+export default App;
