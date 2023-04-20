@@ -3,7 +3,7 @@ import Home from "./components/Home";
 import SkillCreate from "./components/skills/SkillCreate";
 import SkillEdit from "./components/skills/SkillEdit";
 import SkillIndex from "./components/skills/SkillIndex";
-import SkillContext from "./Context/SkillContext";
+import { SkillProvider } from "./Context/SkillContext";
 
 function App() {
   return (

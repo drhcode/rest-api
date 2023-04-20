@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import SkillContext from "../../Context/SkillContext";
 
 const SkillIndex = () => {
-  const { skills, getSkills } = useContext(SkillContext);
+  const { skills, getSkills, deleteSkill } = useContext(SkillContext);
 
   useEffect(() => {
     getSkills();
@@ -38,27 +38,35 @@ const SkillIndex = () => {
             </tr>
           </thead>
           <tbody>
-            {skills.map((skill, index) => (
-              <tr className='bg-white border-b dark:bg-gray-900 dark:border-gray-700' key={index}>
-                <th
-                  scope='row'
-                  className='px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white'
-                >
-                  {skill.id}
-                </th>
-                <td className='px-6 py-4'>{skill.name}</td>
-                <td className='px-6 py-4'>{skill.slug}</td>
-
-                <td className='px-6 py-4'>
-                  <a
-                    href='#'
-                    className='font-medium text-blue-600 dark:text-blue-500 hover:underline'
+            {skills.map((skill, index) => {
+              return (
+                <tr className='bg-white border-b dark:bg-gray-900 dark:border-gray-700' key={index}>
+                  <td
+                    scope='row'
+                    className='px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white'
                   >
-                    Edit / Delete
-                  </a>
-                </td>
-              </tr>
-            ))}
+                    {skill.id}
+                  </td>
+                  <td className='px-6 py-4'>{skill.name}</td>
+                  <td className='px-6 py-4'>{skill.slug}</td>
+
+                  <td className='px-6 py-4 space-x-2'>
+                    <Link
+                      to={`/skills/${skill.id}/edit`}
+                      className='bg-green-500 text-black rounded-md px-4 py-2 hover:bg-green-700 hover:text-white'
+                    >
+                      Edit
+                    </Link>
+                    <button
+                      onClick={() => deleteSkill(skill.id)}
+                      className='bg-red-500 text-black rounded-md px-4 py-2 hover:bg-red-700 hover:text-white'
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>
