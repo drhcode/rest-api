@@ -7,6 +7,7 @@ const SkillCreate = () => {
   useEffect(() => {
     setErrors({});
   }, []);
+
   return (
     <div className='mt-12'>
       <form onSubmit={storeSkill} className='max-w-md mx-auto p-4 bg-white shadow-md rounded-md'>

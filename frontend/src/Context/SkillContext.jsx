@@ -2,6 +2,7 @@ import { createContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 axios.defaults.baseURL = "http://127.0.0.1:8000/api/v1/";
+import Swal from "sweetalert2";
 
 const SkillContext = createContext();
 
@@ -32,6 +33,11 @@ export const SkillProvider = ({ children }) => {
       await axios.post("skills", formValues);
       setFormValues(initialForm);
       navigate("/skills");
+      Swal.fire({
+        icon: "success",
+        title: "Great",
+        text: "Skill added successfully",
+      });
     } catch (error) {
       if (error.response.status === 422) {
         setErrors(error.response.data.errors);
@@ -62,6 +68,11 @@ export const SkillProvider = ({ children }) => {
     try {
       await axios.put("skills/" + skill.id, formValues);
       getSkills();
+      Swal.fire({
+        icon: "success",
+        title: "Great",
+        text: "Skill updated successfully",
+      });
       setFormValues(initialForm);
       navigate("/skills");
     } catch (error) {
@@ -73,7 +84,10 @@ export const SkillProvider = ({ children }) => {
 
   // delete skill
   const deleteSkill = async (id) => {
-    await axios.delete("skills/" + id);
+    const shouldDelete = await axios.delete("skills/" + id);
+    if (shouldDelete) {
+      Swal.fire("Deleted!", "Your file has been deleted.", "success");
+    }
     getSkills();
   };
 
